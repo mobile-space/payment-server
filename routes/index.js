@@ -10,6 +10,12 @@ router.get('/', function(req, res, next) {
     console.log(response)
   })
 
+  //transaction test
+
+  paymentClient.createTransaction({'currency1' : 'LTCT', 'currency2' : 'LTCT', 'amount' : 0.01},function(err,result){
+    console.log(result);
+  });
+
   res.render('index', { title: 'Express' });
 });
 
