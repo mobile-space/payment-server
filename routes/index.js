@@ -1,8 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var paymentClient = require('../paymentClient.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+  //Account Test
+  paymentClient.getBasicInfo(function (err, response) {
+    console.log(response)
+  })
+
   res.render('index', { title: 'Express' });
 });
 
