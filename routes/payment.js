@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var paymentClient = require('../paymentClient.js');
+var {paymentClient, ipnCallback} = require('../paymentClient.js');
 var request = require('request');
 var transaction= {}; 
 
@@ -27,27 +27,8 @@ router.post('/info', function(req, res, next) {
 });
 
 router.post('/status', function(req, res, next) {
-  
-  paymentClient.on('autoipn', function(data){
-   if(isFirstPing && status == 0){
-      //Pending
-       isFirstPing = false; 
-       response = Object.assign({},data,transaction)
-       res.send({transaction: response})
-     } else if (status == 1){
-       //Complete 
-       res.send({
-         transaction: response,
-       })
-     } else {
-       //Failure
-       res.send({
-        transaction: response,
-       })
-     }
+  ipnCallback();
 
-   });  
 });
-
 
 module.exports = router;

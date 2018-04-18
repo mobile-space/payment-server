@@ -7,4 +7,24 @@ options.autoIpn = true;
 var Coinpayments = require('coinpayments');
 var paymentClient = new Coinpayments(options);
 
-module.exports = paymentClient;
+ipnCallback = () => {
+  console.log('test');
+  paymentClient.on('autoipn', function(data){
+    const transactionID = Object.keys(data);
+    const transaction = data[transactionID];
+
+    console.log(transaction)
+      if(transaction.status == 1){
+        //Successful
+         
+       } else if (transaction.status == -1){
+         //Failure
+
+       } 
+    }); 
+}
+
+module.exports = {
+  paymentClient,
+  ipnCallback
+}
