@@ -47,7 +47,7 @@ let middleware = [
     console.log(req.body);
   }]
  
-app.use('/payment/status', middleware);
+// app.use('/payment/status', middleware);
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -8,7 +8,6 @@ router.post('/', function(req, res, next) {
   var transaction= {}; 
 
   paymentClient.createTransaction({'currency1' : 'LTCT', 'currency2' : 'LTCT', 'amount' : 0.1},function(error,result){
-    
     if(error == null && result){
       transaction = Object.assign({}, result);
       res.send({transaction});
