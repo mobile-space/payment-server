@@ -15,7 +15,6 @@ router.post('/', function(req, res, next) {
       //Do something
     }
   });
-
 });
 
 router.post('/info', function(req, res, next) {
