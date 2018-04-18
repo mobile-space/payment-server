@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var paymentClient = require('../paymentClient.js');
+var {paymentClient} = require('../paymentClient.js');
 
 router.post('/', function(req, res, next) {  
   transactionAddresses = [];
@@ -8,8 +8,7 @@ router.post('/', function(req, res, next) {
   var itemsProcessed = 0;
 
   //Gets array of all transactions Addresses
-   promise = paymentClient.getTxList(function (error, response) {
-    
+  paymentClient.getTxList(function (error, response) {
     if(response && error == null){
       transactionAddresses = response;
     } else {
@@ -25,7 +24,7 @@ router.post('/', function(req, res, next) {
         itemsProcessed++; 
 
         if(itemsProcessed == transactionAddresses.length){
-          res.send({transactions: transactions});
+          res.send(transactions);
         }
       });
     });

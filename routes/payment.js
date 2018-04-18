@@ -6,7 +6,7 @@ var transaction= {};
 
 router.post('/', function(req, res, next) {
   var transaction= {}; 
-  
+
   paymentClient.createTransaction({'currency1' : 'LTCT', 'currency2' : 'LTCT', 'amount' : 0.1},function(error,result){
     
     if(error == null && result){
@@ -16,6 +16,7 @@ router.post('/', function(req, res, next) {
       //Do something
     }
   });
+
 });
 
 router.post('/info', function(req, res, next) {
@@ -27,8 +28,7 @@ router.post('/info', function(req, res, next) {
 });
 
 router.post('/status', function(req, res, next) {
-  ipnCallback();
-
+  //ipnCallback();
 });
 
 module.exports = router;
