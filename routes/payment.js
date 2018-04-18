@@ -28,7 +28,7 @@ router.post('/info', function(req, res, next) {
 });
 
 router.post('/status', function(req, res, next) {
-  //ipnCallback();
+  ipnCallback();
 });
 
 module.exports = router;
