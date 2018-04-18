@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     
     if(error == null && result){
       transaction = Object.assign({}, result);
-      res.send({transaction: transaction});
+      res.send({transaction});
     } else {
       //Do something
     }
