@@ -6,9 +6,13 @@ router.post('/', function(req, res, next) {
   transactionAddresses = [];
   transactions = [];
   var itemsProcessed = 0;
+  var options = [];
+  options.limit = 100; 
 
   //Gets array of all transactions Addresses
-  paymentClient.getTxList(function (error, response) {
+
+
+  paymentClient.getTxList(options, function (error, response) {
     if(response && error == null){
       transactionAddresses = response;
     } else {
