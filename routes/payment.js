@@ -5,21 +5,32 @@ var request = require('request');
 var transaction= {}; 
 
 router.post('/', function(req, res, next) {
-  var isFirstPing = true;
-  var response = {};
+  var transaction= {}; 
   
-  paymentClient.createTransaction({'currency1' : 'LTCT', 'currency2' : 'LTCT', 'amount' : 0.1},function(err,result){
-    transaction = Object.assign({}, result);
+  paymentClient.createTransaction({'currency1' : 'LTCT', 'currency2' : 'LTCT', 'amount' : 0.1},function(error,result){
+    
+    if(error == null && result){
+      transaction = Object.assign({}, result);
+      res.send({transaction: transaction});
+    } else {
+      //Do something
+    }
   });
+});
 
+router.post('/info', function(req, res, next) {
+  if(req.body.transactionID){
+    paymentClient.getTx(req.body.transactionID, function(error,result){
+      res.send({transaction: transaction});
+    });
+  }
+});
+
+router.post('/status', function(req, res, next) {
+  
   paymentClient.on('autoipn', function(data){
-    var transactionID = transaction.txn_id
-    var status = data[transactionID].status
-
-    console.log("TEST");
-    console.log(status) 
-     if(isFirstPing && status == 0){
-       //Pending
+   if(isFirstPing && status == 0){
+      //Pending
        isFirstPing = false; 
        response = Object.assign({},data,transaction)
        res.send({transaction: response})
@@ -31,10 +42,12 @@ router.post('/', function(req, res, next) {
      } else {
        //Failure
        res.send({
-         transaction: response,
+        transaction: response,
        })
      }
-   });
+
+   });  
 });
+
 
 module.exports = router;

@@ -13,20 +13,4 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/market', function(req, res, next) {
-  request('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,DASH,BCH&tsyms=BTC,USD', function (error, response, body) {
-      console.log("TEST")
-      if (!error && response.statusCode == 200) {
-          console.log(body) // Print the google web page.
-       }
-  })
-});
-
-
-//POST for payment 
-
-
-
-
-
 module.exports = router;
