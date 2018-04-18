@@ -5,19 +5,20 @@ options.secret = '622c3064DBd9Fffd20B63655c0Ede039c0caF3E3eBc3601F4CDBFe6ee00e07
 
 var Coinpayments = require('coinpayments');
 var paymentClient = new Coinpayments(options);
+let events = CoinPayments.events;
 
 ipnCallback = () => {
-  CoinPayments.on('ipn_fail', function(data){
+  events.on('ipn_fail', function(data){
       // Handle failed transaction
       console.log("IPN FAIL");
       console.log(data);
   });
-  CoinPayments.on('ipn_pending', function(data){
+  events.on('ipn_pending', function(data){
       // Handle pending payment
       console.log("IPN PENDING");
       console.log(data);
   });
-  CoinPayments.on('ipn_complete', function(data){
+  events.on('ipn_complete', function(data){
       // Handle completed payment
       console.log("IPN COMPLETE");
       console.log(data);
