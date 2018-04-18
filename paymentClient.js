@@ -5,7 +5,6 @@ options.secret = '622c3064DBd9Fffd20B63655c0Ede039c0caF3E3eBc3601F4CDBFe6ee00e07
 
 var Coinpayments = require('coinpayments');
 var paymentClient = new Coinpayments(options);
-let events = Coinpayments.events;
 
 ipnCallback = () => {
   events.on('ipn_fail', function(data){

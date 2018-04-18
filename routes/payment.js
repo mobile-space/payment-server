@@ -27,7 +27,11 @@ router.post('/info', function(req, res, next) {
 });
 
 router.post('/status', function(req, res, next) {
-  ipnCallback();
+  if(req.body.transactionID){
+    paymentClient.getTx(req.body.transactionID, function(error,result){
+      res.send({transaction: transaction});
+    });
+  }
 });
 
 module.exports = router;
