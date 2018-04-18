@@ -47,7 +47,7 @@ let middleware = [
     console.log(req.body);
   }]
  
-// app.use('/', middleware);
+app.use('/', middleware);
 
 // error handler
 app.use(function(err, req, res, next) {
