@@ -14,22 +14,22 @@ router.post('/', function(req, res, next) {
     } else {
       res.status = 404;
       res.send(error)
-
     }
   });
 });
 
 router.post('/info', function(req, res, next) {
   var transaction= {};
-  if(req.body.transactionID){
+  if(true){
     paymentClient.getTx(req.body.transactionID, function(error,result){
-      if(error != null && result){
+      console.log(result);
+      if(error == null && result){
         transaction = Object.assign({}, result);
-
         res.send(transaction);
       } else {
         res.status = 404;
-        res.send(error)
+        res.send({error: error})
+        res.end();
       }
     });
   } else {
@@ -40,7 +40,9 @@ router.post('/info', function(req, res, next) {
 
 router.post('/status', function(req, res, next) {
   var transaction= {};
-  if(req.body.transactionID){
+
+
+  if(!Object.keys(req).length){
     paymentClient.getTx(req.body.transactionID, function(error,result){
       if(error != null && result){
         transaction = Object.assign({}, result);
