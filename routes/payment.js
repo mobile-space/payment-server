@@ -10,7 +10,7 @@ router.post('/', function(req, res, next) {
   paymentClient.createTransaction({'currency1' : 'LTCT', 'currency2' : 'LTCT', 'amount' : 0.1},function(error,result){
     if(error == null && result){
       transaction = Object.assign({}, result);
-      res.send({transaction});
+      res.send(transaction);
     } else {
       res.status = 404;
       res.send(error)
@@ -20,10 +20,13 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/info', function(req, res, next) {
+  var transaction= {};
   if(req.body.transactionID){
     paymentClient.getTx(req.body.transactionID, function(error,result){
       if(error != null && result){
-        res.send({result});
+        transaction = Object.assign({}, result);
+
+        res.send(transaction);
       } else {
         res.status = 404;
         res.send(error)
@@ -36,10 +39,12 @@ router.post('/info', function(req, res, next) {
 });
 
 router.post('/status', function(req, res, next) {
+  var transaction= {};
   if(req.body.transactionID){
     paymentClient.getTx(req.body.transactionID, function(error,result){
       if(error != null && result){
-        res.send({result});
+        transaction = Object.assign({}, result);
+        res.send(transaction);
       } else {
         res.status = 404;
         res.send(error)
