@@ -12,7 +12,9 @@ router.post('/', function(req, res, next) {
       transaction = Object.assign({}, result);
       res.send({transaction});
     } else {
-      //Do something
+      res.status = 404;
+      res.send(error)
+
     }
   });
 });
@@ -20,16 +22,32 @@ router.post('/', function(req, res, next) {
 router.post('/info', function(req, res, next) {
   if(req.body.transactionID){
     paymentClient.getTx(req.body.transactionID, function(error,result){
-      res.send({transaction: transaction});
+      if(error != null && result){
+        res.send({transaction: transaction});
+      } else {
+        res.status = 404;
+        res.send(error)
+      }
     });
+  } else {
+    res.status = 404
+    res.send("Error! Missing transaction ID!")
   }
 });
 
 router.post('/status', function(req, res, next) {
   if(req.body.transactionID){
     paymentClient.getTx(req.body.transactionID, function(error,result){
-      res.send({transaction: transaction});
+      if(error != null && result){
+        res.send({transaction: transaction});
+      } else {
+        res.status = 404;
+        res.send(error)
+      }
     });
+  } else {
+    res.status = 404
+    res.send("Error! Missing transaction ID!")
   }
 });
 
