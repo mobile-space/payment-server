@@ -11,7 +11,7 @@ var transactionsRouter = require('./routes/transactions');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); 
+app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'jade');
 app.use(logger('dev'));
@@ -26,14 +26,15 @@ app.use('/payment', paymentRouter);
 app.use('/transactions', transactionsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 let CoinPayments = require('coinpayments');
-let bodyParser   = require('body-parser');
-    
+let bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //Initializes midleware for coinpayments IPN
 let events = CoinPayments.events;
@@ -41,50 +42,50 @@ let middleware = [
   CoinPayments.ipn({
     'merchantId': '5d47493d32482aef464ac46d11ccd4ef714bac28ff06726208bdcc487b5c5b16',
     'merchantSecret': '622c3064DBd9Fffd20B63655c0Ede039c0caF3E3eBc3601F4CDBFe6ee00e0774',
-  }), 
+  }),
   function (req, res, next) {
     // Handle via middleware
     console.log(req.body);
   }]
 
-  app.use('/', middleware)
+app.use('/', middleware)
 
-  CoinPayments.on('ipn_fail', function(data){
-    // Handle failed transaction
-    console.log("IPN FAIL");
-    console.log(data);
-});
-CoinPayments.on('ipn_pending', function(data){
-    // Handle pending payment
-    console.log("IPN PENDING");
-    console.log(data);
-});
-CoinPayments.on('ipn_complete', function(data){
-    // Handle completed payment
-    console.log("IPN COMPLETE");
-    console.log(data);
-});
- 
- 
-// Handle via static field ( can be used in other files, aka no need to init )
-events.on('ipn_fail', function(data){
-    // Handle failed transaction
-    console.log("IPN FAIL");
-    console.log(data);
-});
-events.on('ipn_pending', function(data){
-    // Handle pending payment
-    console.log("IPN PENDING");
-    console.log(data);
-});
-events.on('ipn_complete', function(data){
-    // Handle completed payment
-    console.log("IPN COMPLETE");
-    console.log(data);
-});
+  // CoinPayments.on('ipn_fail', function (data) {
+  //   // Handle failed transaction
+  //   console.log("IPN FAIL");
+  //   console.log(data);
+  // });
+  // CoinPayments.on('ipn_pending', function (data) {
+  //   // Handle pending payment
+  //   console.log("IPN PENDING");
+  //   console.log(data);
+  // });
+  // CoinPayments.on('ipn_complete', function (data) {
+  //   // Handle completed payment
+  //   console.log("IPN COMPLETE");
+  //   console.log(data);
+  // });
+
+
+  // // Handle via static field ( can be used in other files, aka no need to init )
+  // events.on('ipn_fail', function (data) {
+  //   // Handle failed transaction
+  //   console.log("IPN FAIL");
+  //   console.log(data);
+  // });
+  // events.on('ipn_pending', function (data) {
+  //   // Handle pending payment
+  //   console.log("IPN PENDING");
+  //   console.log(data);
+  // });
+  // events.on('ipn_complete', function (data) {
+  //   // Handle completed payment
+  //   console.log("IPN COMPLETE");
+  //   console.log(data);
+  // });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
