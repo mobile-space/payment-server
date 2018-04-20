@@ -23,7 +23,7 @@ router.post('/info', function(req, res, next) {
   if(req.body.transactionID){
     paymentClient.getTx(req.body.transactionID, function(error,result){
       if(error != null && result){
-        res.send({transaction: transaction});
+        res.send({result});
       } else {
         res.status = 404;
         res.send(error)
@@ -39,7 +39,7 @@ router.post('/status', function(req, res, next) {
   if(req.body.transactionID){
     paymentClient.getTx(req.body.transactionID, function(error,result){
       if(error != null && result){
-        res.send({transaction: transaction});
+        res.send({result});
       } else {
         res.status = 404;
         res.send(error)
