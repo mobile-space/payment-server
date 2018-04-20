@@ -46,7 +46,9 @@ let middleware = [
     // Handle via middleware
     console.log(req.body);
   }]
- 
+
+  app.use('/', middleware)
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
