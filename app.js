@@ -49,6 +49,40 @@ let middleware = [
 
   app.use('/', middleware)
 
+  CoinPayments.on('ipn_fail', function(data){
+    // Handle failed transaction
+    console.log("IPN FAIL");
+    console.log(data);
+});
+CoinPayments.on('ipn_pending', function(data){
+    // Handle pending payment
+    console.log("IPN PENDING");
+    console.log(data);
+});
+CoinPayments.on('ipn_complete', function(data){
+    // Handle completed payment
+    console.log("IPN COMPLETE");
+    console.log(data);
+});
+ 
+ 
+// Handle via static field ( can be used in other files, aka no need to init )
+events.on('ipn_fail', function(data){
+    // Handle failed transaction
+    console.log("IPN FAIL");
+    console.log(data);
+});
+events.on('ipn_pending', function(data){
+    // Handle pending payment
+    console.log("IPN PENDING");
+    console.log(data);
+});
+events.on('ipn_complete', function(data){
+    // Handle completed payment
+    console.log("IPN COMPLETE");
+    console.log(data);
+});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
